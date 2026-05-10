@@ -229,7 +229,11 @@ No added headline. Product-native print/logo only. Model and back/detail inset a
 
 ## Generation Runtime Pattern
 
-When the Hermes OpenAI/Codex provider is available, use it directly:
+Preferred path inside normal Hermes chat sessions is the configured `image_generate` tool, because it may have access to the active image provider even when an ad-hoc Python import of `plugins.image_gen.openai-codex` reports `auth_required`.
+
+Use direct provider scripts only when verified in the current runtime. If direct scripts fail with `No Codex/ChatGPT OAuth credentials available`, do not stop the PDP run; switch to `image_generate`, then copy the returned cache image path into the project `01_raw_generations...` and `02_accepted_sections...` folders before stitching.
+
+When the Hermes OpenAI/Codex provider is available in Python, this direct pattern can be used:
 
 ```python
 import importlib, os, shutil, sys
